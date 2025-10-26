@@ -13,8 +13,8 @@ ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
 st.set_page_config(page_title="Databricks Dashboard", layout="wide")
 st.title("Personlige stemmer 2025")
 
-kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer2025"
-kommunalvalg_lemvig_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer2025 WHERE kommune = 'Lemvig Kommune'"
+kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
+kommunalvalg_lemvig_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025 WHERE kommune = 'Lemvig Kommune'"
 
 page_dict = {"Kommunalvalg": kommunalvalg_query, "Lemvig Kommune": kommunalvalg_lemvig_query}
 
