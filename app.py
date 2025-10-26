@@ -30,7 +30,7 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
         cur.execute(f"{table_query}")
         df = pd.DataFrame(cur.fetchall(), columns=[d[0] for d in cur.description])
 
-st.dataframe(df, use_container_width=True)
+st.dataframe(df, width=True)
 st.caption(f"Table: {table} | Last updated: {time.strftime('%H:%M:%S')}")
 
 # streamlit run databricks_live_dashboard.py
