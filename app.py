@@ -14,12 +14,12 @@ st.set_page_config(page_title="Databricks Dashboard", layout="wide")
 st.title("Personlige stemmer 2025")
 
 kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
-kommunalvalg_lemvig_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025 WHERE kommune = 'Lemvig Kommune'"
+regionvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_rv_2025"
 
-page_dict = {"Kommunalvalg": kommunalvalg_query, "Lemvig Kommune": kommunalvalg_lemvig_query}
+page_dict = {"Kommunalvalg": kommunalvalg_query, "Regionsrådsvalg": regionvalg_query}
 
 # Page selector
-table = st.sidebar.selectbox("Vælg tabel", ["Kommunalvalg", "Lemvig Kommune"])
+table = st.sidebar.selectbox("Vælg tabel", ["Kommunalvalg", "Regionsrådsvalg"])
 
 table_query = page_dict[f"{table}"]
 
