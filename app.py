@@ -30,19 +30,19 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
         cur.execute(f"{table_query}")
         df = pd.DataFrame(cur.fetchall(), columns=[d[0] for d in cur.description])
 
-# --- Sidebar filters ---
-st.sidebar.header("Filters")
+# # --- Sidebar filters ---
+# st.sidebar.header("Filters")
 
-filters = {}
-for col in ['kommune', 'region', 'parti']:
-    if col in df.columns:
-        unique_vals = df[col].dropna().unique()
-        selected = st.sidebar.multiselect(f"{col}", unique_vals, default=unique_vals)
-        filters[col] = selected
+# filters = {}
+# for col in ['kommune', 'region', 'parti']:
+#     if col in df.columns:
+#         unique_vals = df[col].dropna().unique()
+#         selected = st.sidebar.multiselect(f"{col}", unique_vals, default=unique_vals)
+#         filters[col] = selected
 
-# --- Apply filters ---
-for col, selected in filters.items():
-    df = df[df[col].isin(selected)]
+# # --- Apply filters ---
+# for col, selected in filters.items():
+#     df = df[df[col].isin(selected)]
 
 st.dataframe(df)
 st.caption(f"Table: {table} | Last updated: {time.strftime('%H:%M:%S')}")
