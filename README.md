@@ -1,0 +1,1 @@
+# valgresultater_KRV_2025
