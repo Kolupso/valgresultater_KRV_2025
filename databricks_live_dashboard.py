@@ -1,0 +1,36 @@
+import streamlit as st
+import pandas as pd
+import time
+from databricks import sql
+from streamlit_autorefresh import st_autorefresh
+
+# ---- Connection Settings ----
+SERVER_HOST = st.secrets["SERVER_HOST"]
+HTTP_PATH = st.secrets["HTTP_PATH"]
+ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
+
+
+st.set_page_config(page_title="Databricks Dashboard", layout="wide")
+st.title("Personlige stemmer 2025")
+
+kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer2025"
+kommunalvalg_lemvig_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer2025 WHERE kommune = 'Lemvig Kommune'"
+
+page_dict = {"Kommunalvalg": kommunalvalg_query, "Lemvig Kommune": kommunalvalg_lemvig_query}
+
+# Page selector
+table = st.sidebar.selectbox("Vælg tabel", ["Kommunalvalg", "Lemvig Kommune"])
+
+table_query = page_dict[f"{table}"]
+
+st_autorefresh(interval=30_000, key=table)
+
+with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=ACCESS_TOKEN) as c:
+    with c.cursor() as cur:
+        cur.execute(f"{table_query}")
+        df = pd.DataFrame(cur.fetchall(), columns=[d[0] for d in cur.description])
+
+st.dataframe(df, use_container_width=True)
+st.caption(f"Table: {table} | Last updated: {time.strftime('%H:%M:%S')}")
+
+# streamlit run databricks_live_dashboard.py
