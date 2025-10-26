@@ -34,7 +34,7 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
 st.sidebar.header("Filters")
 
 filters = {}
-for col in df.columns:
+for col in df.columns if col.isin(['kommune', 'region', 'parti']):
     unique_vals = df[col].dropna().unique()
     if len(unique_vals) <= 98:  # only make filters for categorical-like columns
         selected = st.sidebar.multiselect(f"{col}", unique_vals, default=unique_vals)
