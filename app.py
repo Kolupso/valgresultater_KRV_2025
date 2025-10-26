@@ -37,9 +37,8 @@ filters = {}
 for col in ['kommune', 'region', 'parti']:
     if col in df.columns:
         unique_vals = df[col].dropna().unique()
-        if len(unique_vals) <= 98:  # only make filters for categorical-like columns
-            selected = st.sidebar.multiselect(f"{col}", unique_vals, default=unique_vals)
-            filters[col] = selected
+        selected = st.sidebar.multiselect(f"{col}", unique_vals, default=unique_vals)
+        filters[col] = selected
 
 # --- Apply filters ---
 for col, selected in filters.items():
