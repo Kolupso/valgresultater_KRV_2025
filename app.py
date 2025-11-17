@@ -1,6 +1,7 @@
 import streamlit as st
 
-st.set_page_config(page_title="Databricks Dashboard", layout="wide")
+# st.set_page_config(page_title="Databricks Dashboard", layout="wide")
+st.set_page_config(page_title="Forside", page_icon="🏙️")
 
 st.title("Velkommen til valg-dashboardet")
 st.write("Brug menuen i venstre side til at vælge visning:")
