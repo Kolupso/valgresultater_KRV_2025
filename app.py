@@ -13,7 +13,7 @@ ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
 st.set_page_config(page_title="Databricks Dashboard", layout="wide")
 st.title("Personlige stemmer 2025")
 
-valg = st.sidebar.selectbox("Vælg valg", ["Kommunalvalg", "Regionsrådsvalg"])
+# valg = st.sidebar.selectbox("Vælg valg", ["Kommunalvalg", "Regionsrådsvalg"])
 
 omraade = st.sidebar.selectbox("Vælg kommune/region", [
     "Albertslund Kommune",
@@ -132,7 +132,7 @@ page_dict = {"Kommunalvalg": kommunalvalg_query, "Regionsrådsvalg": regionvalg_
 
 # table_query = page_dict[f"{table}"]
 
-st_autorefresh(interval=30_000, key=table)
+st_autorefresh(interval=30_000, key=omraade)
 
 with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=ACCESS_TOKEN) as c:
     with c.cursor() as cur:
@@ -154,6 +154,6 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
 #     df = df[df[col].isin(selected)]
 
 st.dataframe(df)
-st.caption(f"Table: {table} | Last updated: {time.strftime('%H:%M:%S')}")
+st.caption(f"Kommune/region: {omraade} | Last updated: {time.strftime('%H:%M:%S')}")
 
 # streamlit run databricks_live_dashboard.py
