@@ -171,7 +171,7 @@ else:
             cur.execute(f"{query}")
             df = pd.DataFrame(cur.fetchall(), columns=[d[0] for d in cur.description])
 
-    st_autorefresh(interval=30_000, key=omraade)
+    st_autorefresh(interval=30_000)
 
     st.set_page_config(page_title="Databricks Dashboard", layout="wide")
     st.title(f"Personlige stemmer 2025 - SFU kandidater")
