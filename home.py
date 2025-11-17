@@ -7,4 +7,5 @@ st.write("Brug menuen i venstre side til at vælge visning:")
 st.markdown("""
 - **Kommuner / Regioner**
 - **SFU kandidater**
+- **Annas liste**
 """)
