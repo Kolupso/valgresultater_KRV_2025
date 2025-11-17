@@ -125,7 +125,7 @@ if sf_valg == "Ja":
 else:
     sf_subquery = ""
 
-query = f"SELECT parti as Parti, kandidat as Kandidat, antal_stemmer as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' AND kandidat != 'Listestemmer'{sf_subquery} ORDER BY parti, kandidat"
+query = f"SELECT substring(parti, 3) as Parti, kandidat as Kandidat, antal_stemmer as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' AND kandidat != 'Listestemmer'{sf_subquery} ORDER BY parti, kandidat"
 overblik_query = f"SELECT parti as Parti, sum(antal_stemmer) as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' GROUP BY parti ORDER BY parti"
 
 
@@ -161,6 +161,6 @@ st.caption(f"Kommune/region: {omraade} | Last updated: {time.strftime('%H:%M:%S'
 
 st.dataframe(df_overblik)
 
-st.caption(f"Query: {query}, {sf_valg}")
+# st.caption(f"Query: {query}, {sf_valg}")
 
 # streamlit run databricks_live_dashboard.py
