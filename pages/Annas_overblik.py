@@ -3,6 +3,8 @@ import pandas as pd
 import time
 from databricks import sql
 from streamlit_autorefresh import st_autorefresh
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 SERVER_HOST = st.secrets["SERVER_HOST"]
 HTTP_PATH = st.secrets["HTTP_PATH"]
@@ -27,4 +29,6 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
 
 st_autorefresh(interval=30_000)
 st.dataframe(df)
-st.caption(f"Last updated: {time.strftime('%H:%M:%S')}")
+# st.caption(f"Last updated: {time.strftime('%H:%M:%S')}")
+danish_time = datetime.now(ZoneInfo("Europe/Copenhagen")).strftime("%H:%M:%S")
+st.caption(f"Last updated: {danish_time}")
