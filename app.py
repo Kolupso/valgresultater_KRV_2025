@@ -10,8 +10,6 @@ HTTP_PATH = st.secrets["HTTP_PATH"]
 ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
 
 
-
-
 # valg = st.sidebar.selectbox("Vælg valg", ["Kommunalvalg", "Regionsrådsvalg"])
 
 sfu_valg = st.sidebar.selectbox("Kun SFU kandidater?", ["Ja", "Nej"])
@@ -130,17 +128,6 @@ if sfu_valg == "Nej":
 
     query = f"SELECT SUBSTRING_INDEX(parti, '.', 1) AS Partibogstav, SUBSTRING_INDEX(parti, '.', -1) AS Parti, kandidat as Kandidat, antal_stemmer as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' AND kandidat != 'Listestemmer'{sf_subquery} ORDER BY parti, kandidat"
     overblik_query = f"SELECT SUBSTRING_INDEX(parti, '.', 1) AS Partibogstav, SUBSTRING_INDEX(parti, '.', -1) AS Parti, sum(antal_stemmer) as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' GROUP BY parti ORDER BY parti"
-
-
-    # kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
-    # regionvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_rv_2025"
-
-    # page_dict = {"Kommunalvalg": kommunalvalg_query, "Regionsrådsvalg": regionvalg_query}
-
-    # # Page selector
-    # table = st.sidebar.selectbox("Vælg tabel", ["Kommunalvalg", "Regionsrådsvalg"])
-
-    # table_query = page_dict[f"{table}"]
 
 
     with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=ACCESS_TOKEN) as c:
