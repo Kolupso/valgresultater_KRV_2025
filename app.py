@@ -10,8 +10,7 @@ HTTP_PATH = st.secrets["HTTP_PATH"]
 ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
 
 
-st.set_page_config(page_title="Databricks Dashboard", layout="wide")
-st.title("Personlige stemmer 2025")
+
 
 # valg = st.sidebar.selectbox("Vælg valg", ["Kommunalvalg", "Regionsrådsvalg"])
 
@@ -152,6 +151,9 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
 # # --- Apply filters ---
 # for col, selected in filters.items():
 #     df = df[df[col].isin(selected)]
+
+st.set_page_config(page_title="Databricks Dashboard", layout="wide")
+st.title(f"Personlige stemmer 2025 - {omraade}")
 
 st.dataframe(df)
 st.caption(f"Kommune/region: {omraade} | Last updated: {time.strftime('%H:%M:%S')}")
