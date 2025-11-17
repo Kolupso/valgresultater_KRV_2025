@@ -120,7 +120,7 @@ omraade = st.sidebar.selectbox("Vælg kommune/region", [
 ])
 
 sf_valg = st.sidebar.selectbox("Kun SF?", ["Ja", "Nej"])
-if sf_valg == "ja":
+if sf_valg == "Ja":
     sf_subquery = " AND parti = 'F. SF - Socialistisk Folkeparti'"
 else:
     sf_subquery = ""
