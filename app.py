@@ -120,6 +120,8 @@ omraade = st.sidebar.selectbox("Vælg kommune/region", [
 ])
 
 query = f"SELECT * FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' AND kandidat != 'Listestemmer' ORDER BY parti, kandidat"
+overblik_query = f"SELECT parti, sum(antal_stemmer) FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' GROUP BY parti"
+
 
 kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
 regionvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_rv_2025"
@@ -137,6 +139,12 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
     with c.cursor() as cur:
         cur.execute(f"{query}")
         df = pd.DataFrame(cur.fetchall(), columns=[d[0] for d in cur.description])
+
+with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=ACCESS_TOKEN) as c:
+    with c.cursor() as cur2:
+        cur2.execute(f"{overblik_query}")
+        df_overblik = pd.DataFrame(cur2.fetchall(), columns=[d[0] for d in cur.description])
+
 
 # # --- Sidebar filters ---
 # st.sidebar.header("Filters")
@@ -157,5 +165,8 @@ st.title(f"Personlige stemmer 2025 - {omraade}")
 
 st.dataframe(df)
 st.caption(f"Kommune/region: {omraade} | Last updated: {time.strftime('%H:%M:%S')}")
+
+st.dataframe(df_overblik)
+
 
 # streamlit run databricks_live_dashboard.py
