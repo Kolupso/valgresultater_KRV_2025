@@ -119,7 +119,7 @@ omraade = st.sidebar.selectbox("Vælg kommune/region", [
     "Region Østdanmark"
 ])
 
-omraade = st.sidebar.selectbox("Kun SF?", ["Ja", "Nej"])
+sf_valg = st.sidebar.selectbox("Kun SF?", ["Ja", "Nej"])
 
 query = f"SELECT parti as Parti, kandidat as Kandidat, antal_stemmer as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' AND kandidat != 'Listestemmer' ORDER BY parti, kandidat"
 overblik_query = f"SELECT parti as Parti, sum(antal_stemmer) as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' GROUP BY parti ORDER BY parti"
