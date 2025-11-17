@@ -6,6 +6,7 @@ st.title("Velkommen til opgørelse af personlige stemmer for KRV 2025")
 st.write("Brug menuen i venstre side til at vælge visning:")
 st.markdown("""
 - **Annas liste**
-- **Kommuner / Regioner**
+- **Kommunalvalg**
+- **Regionalvalg / Regioner**
 - **SFU kandidater**
 """)
