@@ -120,7 +120,7 @@ omraade = st.sidebar.selectbox("Vælg kommune/region", [
 ])
 
 query = f"SELECT parti as Parti, kandidat as Kandidat, antal_stemmer as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' AND kandidat != 'Listestemmer' ORDER BY parti, kandidat"
-overblik_query = f"SELECT parti, sum(antal_stemmer) as antal_stemmer FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' GROUP BY parti ORDER BY parti"
+overblik_query = f"SELECT parti as Parti, sum(antal_stemmer) as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' GROUP BY parti ORDER BY parti"
 
 
 kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
