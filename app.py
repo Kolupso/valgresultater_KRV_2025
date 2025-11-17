@@ -146,19 +146,6 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
         df_overblik = pd.DataFrame(cur2.fetchall(), columns=[d[0] for d in cur.description])
 
 
-# # --- Sidebar filters ---
-# st.sidebar.header("Filters")
-
-# filters = {}
-# for col in ['kommune', 'region', 'parti']:
-#     if col in df.columns:
-#         unique_vals = df[col].dropna().unique()
-#         selected = st.sidebar.multiselect(f"{col}", unique_vals, default=unique_vals)
-#         filters[col] = selected
-
-# # --- Apply filters ---
-# for col, selected in filters.items():
-#     df = df[df[col].isin(selected)]
 
 st.set_page_config(page_title="Databricks Dashboard", layout="wide")
 st.title(f"Personlige stemmer 2025 - {omraade}")
