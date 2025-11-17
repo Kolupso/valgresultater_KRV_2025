@@ -161,6 +161,6 @@ st.caption(f"Kommune/region: {omraade} | Last updated: {time.strftime('%H:%M:%S'
 
 st.dataframe(df_overblik)
 
-st.caption(f"Query: {query})
+st.caption(f"Query: {query}")
 
 # streamlit run databricks_live_dashboard.py
