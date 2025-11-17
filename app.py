@@ -143,7 +143,7 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
 with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=ACCESS_TOKEN) as c:
     with c.cursor() as cur2:
         cur2.execute(f"{overblik_query}")
-        df_overblik = pd.DataFrame(cur2.fetchall(), columns=[d[0] for d in cur.description])
+        df_overblik = pd.DataFrame(cur2.fetchall(), columns=[d[0] for d in cur2.description])
 
 
 
