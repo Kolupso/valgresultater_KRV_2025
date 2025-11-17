@@ -9,8 +9,8 @@ SERVER_HOST = st.secrets["SERVER_HOST"]
 HTTP_PATH = st.secrets["HTTP_PATH"]
 ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
 
-st.set_page_config(page_title="Kommuner & Regioner", layout="wide")
-st.title("Personlige stemmer 2025 - Kommuner / Regioner")
+st.set_page_config(page_title="Kommuner", layout="wide")
+st.title("Personlige stemmer 2025 - Kommuner")
 
 # Select region
 omraade = st.sidebar.selectbox("Vælg kommune/region", [
@@ -34,8 +34,7 @@ omraade = st.sidebar.selectbox("Vælg kommune/region", [
     "Stevns Kommune", "Struer Kommune", "Svendborg Kommune", "Syddjurs Kommune", "Sønderborg Kommune",
     "Thisted Kommune", "Tønder Kommune", "Tårnby Kommune", "Vallensbæk Kommune", "Varde Kommune",
     "Vejen Kommune", "Vejle Kommune", "Vesthimmerlands Kommune", "Viborg Kommune", "Vordingborg Kommune",
-    "Ærø Kommune", "Aabenraa Kommune", "Aalborg Kommune", "Aarhus Kommune", "Region Nordjylland",
-    "Region Syddanmark", "Region Midtjylland", "Region Østdanmark"
+    "Ærø Kommune", "Aabenraa Kommune", "Aalborg Kommune", "Aarhus Kommune"
 ])
 
 # Optional filter
@@ -49,6 +48,7 @@ SELECT SUBSTRING_INDEX(parti, '.', 1) AS Partibogstav,
        antal_stemmer as `Antal stemmer`
 FROM workspace.valgresultat.personlige_stemmer_krv_2025
 WHERE `kommune/region` = '{omraade}'
+AND `kommune/region` not like '%Region%'
   AND kandidat != 'Listestemmer'
   {sf_filter}
 ORDER BY parti, kandidat;
@@ -60,6 +60,7 @@ SELECT SUBSTRING_INDEX(parti, '.', 1) AS Partibogstav,
        SUM(antal_stemmer) as `Antal stemmer`
 FROM workspace.valgresultat.personlige_stemmer_krv_2025
 WHERE `kommune/region` = '{omraade}'
+AND `kommune/region` not like '%Region%'
 GROUP BY parti
 ORDER BY parti;
 """
