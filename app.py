@@ -120,7 +120,7 @@ omraade = st.sidebar.selectbox("Vælg kommune/region", [
     "Region Østdanmark"
 ])
 
-query = f"SELECT * FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE kommune/region = {omraade} ORDER BY parti, kandidat"
+query = f"SELECT * FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = {omraade} ORDER BY parti, kandidat"
 
 kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
 regionvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_rv_2025"
