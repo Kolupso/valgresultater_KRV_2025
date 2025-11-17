@@ -14,6 +14,8 @@ ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
 
 # valg = st.sidebar.selectbox("Vælg valg", ["Kommunalvalg", "Regionsrådsvalg"])
 
+sfu_valg = st.sidebar.selectbox("Kun SFU kandidater?", ["Ja", "Nej"])
+
 omraade = st.sidebar.selectbox("Vælg kommune/region", [
     "Albertslund Kommune",
     "Allerød Kommune",
@@ -129,17 +131,16 @@ query = f"SELECT SUBSTRING_INDEX(parti, '.', 1) AS Partibogstav, SUBSTRING_INDEX
 overblik_query = f"SELECT SUBSTRING_INDEX(parti, '.', 1) AS Partibogstav, SUBSTRING_INDEX(parti, '.', -1) AS Parti, sum(antal_stemmer) as `Antal stemmer` FROM workspace.valgresultat.personlige_stemmer_krv_2025 WHERE `kommune/region` = '{omraade}' GROUP BY parti ORDER BY parti"
 
 
-kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
-regionvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_rv_2025"
+# kommunalvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_kv_2025"
+# regionvalg_query = "SELECT * FROM workspace.valgresultat.personlige_stemmer_rv_2025"
 
-page_dict = {"Kommunalvalg": kommunalvalg_query, "Regionsrådsvalg": regionvalg_query}
+# page_dict = {"Kommunalvalg": kommunalvalg_query, "Regionsrådsvalg": regionvalg_query}
 
 # # Page selector
 # table = st.sidebar.selectbox("Vælg tabel", ["Kommunalvalg", "Regionsrådsvalg"])
 
 # table_query = page_dict[f"{table}"]
 
-st_autorefresh(interval=30_000, key=omraade)
 
 with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=ACCESS_TOKEN) as c:
     with c.cursor() as cur:
@@ -152,6 +153,8 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
         df_overblik = pd.DataFrame(cur2.fetchall(), columns=[d[0] for d in cur2.description])
 
 
+
+st_autorefresh(interval=30_000, key=omraade)
 
 st.set_page_config(page_title="Databricks Dashboard", layout="wide")
 st.title(f"Personlige stemmer 2025 - {omraade}")
