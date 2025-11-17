@@ -26,4 +26,5 @@ with sql.connect(server_hostname=SERVER_HOST, http_path=HTTP_PATH, access_token=
 
 st_autorefresh(interval=30_000)
 st.dataframe(df)
-st.caption(f"Last updated: {time.strftime('%H:%M:%S')}")
+danish_time = datetime.now(ZoneInfo("Europe/Copenhagen")).strftime("%H:%M:%S")
+st.caption(f"Last updated: {danish_time}")
