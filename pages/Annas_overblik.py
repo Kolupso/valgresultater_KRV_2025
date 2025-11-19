@@ -27,6 +27,7 @@ st.title("Personlige stemmer 2025 - Annas overblik")
 #         cur.execute(query)
 #         df = pd.DataFrame(cur.fetchall(), columns=[d[0] for d in cur.description])
 
+st.cache_data.clear()
 url = "https://raw.githubusercontent.com/Kolupso/valgresultater_KRV_2025/refs/heads/main/combined_results.csv"
 df = pd.read_csv(url)
 df["antal_stemmer"] = df["antal_stemmer"].astype(int)
