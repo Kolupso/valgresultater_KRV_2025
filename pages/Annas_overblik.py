@@ -29,9 +29,23 @@ st.title("Personlige stemmer 2025 - Annas overblik")
 
 url = "https://raw.githubusercontent.com/Kolupso/valgresultater_KRV_2025/refs/heads/main/combined_results.csv"
 df = pd.read_csv(url)
+df["antal_stemmer"] = df["antal_stemmer"].astype(int)
+
+df_filtered = (
+    df[df["anna_liste"] == "Ja"]     # WHERE anna_liste = 'Ja'
+      .loc[:, ["parti", "kandidat", "antal_stemmer"]]   # SELECT columns
+      .rename(columns={
+          "parti": "Parti",
+          "kandidat": "Kandidat",
+          "antal_stemmer": "Antal stemmer"
+      })
+      .sort_values(["Parti", "Kandidat"])   # ORDER BY
+      .reset_index(drop=True)
+)
+
 
 st_autorefresh(interval=30_000)
-st.dataframe(df)
+st.dataframe(df_filtered)
 # st.caption(f"Last updated: {time.strftime('%H:%M:%S')}")
 danish_time = datetime.now(ZoneInfo("Europe/Copenhagen")).strftime("%H:%M:%S")
 st.caption(f"Last updated: {danish_time}")
