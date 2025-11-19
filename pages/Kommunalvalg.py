@@ -71,13 +71,13 @@ df_filtered = df_filtered[~df_filtered["kommune/region"].str.contains("Region")]
 # AND kandidat != 'Listestemmer'
 df_filtered = df_filtered[df_filtered["kandidat"] != "Listestemmer"]
 
-# AND possible extra SF filter
-# `sf_filter` usually becomes: "df_filtered = df_filtered[df_filtered['SFU_kandidat']=='Ja']"
-if sf_filter:
-    df_filtered = eval(sf_filter)   # assuming you're passing a valid pandas expression string
-
 # SUBSTRING_INDEX(parti,'.',1) → text before first dot
 df_filtered["Partibogstav"] = df_filtered["parti"].str.split(".").str[0]
+
+# AND possible extra SF filter
+# `sf_filter` usually becomes: "df_filtered = df_filtered[df_filtered['SFU_kandidat']=='Ja']"
+if sf_valg == "Ja":
+    df_filtered = df_filtered[df_filtered["Partibogstav"] == "F"]
 
 # SUBSTRING_INDEX(parti,'.',-1) → text after last dot
 df_filtered["Parti"] = df_filtered["parti"].str.split(".").str[-1]
