@@ -57,7 +57,7 @@ sf_filter = " AND parti = 'F. SF - Socialistisk Folkeparti'" if sf_valg == "Ja" 
 #         cur2.execute(sum_query)
 #         df_sum = pd.DataFrame(cur2.fetchall(), columns=[d[0] for d in cur2.description])
 
-
+st.cache_data.clear()
 url = "https://raw.githubusercontent.com/Kolupso/valgresultater_KRV_2025/refs/heads/main/combined_results.csv"
 df = pd.read_csv(url)
 df["antal_stemmer"] = df["antal_stemmer"].astype(int)
